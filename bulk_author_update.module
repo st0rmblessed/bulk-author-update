@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Bulk Author Update module file.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function bulk_author_update_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.bulk_author_update':
+      $output = '';
+      $output .= '<h2>' . t('About') . '</h2>';
+      $output .= '<p>' . t('Bulk Author Update is a module that allow the users to change the author of nodes in bulk.')
+        . '</p>';
+
+      $output .= '<h2>' . t('Uses') . '</h2>';
+      $output .= '<dl>';
+      $output .= '<dt>' . t('Update nodes which the original author is no longer a user of the platform.') . '</dt>';
+      $output .= '</dl>';
+      return $output;
+  }
+}

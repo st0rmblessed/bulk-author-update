@@ -1,0 +1,8 @@
+bulk_author_update.admin_config_form:
+  title: 'Bulk Author Update Settings'
+  base_route: 'bulk_author_update.admin_config_form'
+  route_name: 'bulk_author_update.admin_config_form'
+bulk_author_update.admin_view:
+  title: 'Content List'
+  base_route: 'bulk_author_update.admin_config_form'
+  route_name: 'bulk_author_update.admin_view'

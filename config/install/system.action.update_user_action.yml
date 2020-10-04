@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - bulk_author_update
+id: update_user_action
+label: 'Update author'
+type: node
+plugin: update_user_action
+configuration: { }

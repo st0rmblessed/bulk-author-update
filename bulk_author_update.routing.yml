@@ -1,0 +1,14 @@
+bulk_author_update.admin_config_form:
+  path: /admin/content/bulkauthorupdate/config
+  defaults:
+    _title: 'Bulk Author Update Configuration'
+    _form: \Drupal\bulk_author_update\Form\BulkAuthorUpdateAdminConfigForm
+  requirements:
+    _permission: 'access bulk author update config page'
+
+bulk_author_update.admin_view:
+  path: /admin/content/bulkauthorupdate/view
+  defaults:
+    _title: 'Content List'
+  requirements:
+    _permission: 'access bulk author update config page'

@@ -1,0 +1,6 @@
+name: 'Bulk Author Update'
+description: 'Allows to update the author of nodes in bulk'
+package: 'Bulk Author Update'
+core: 8.x
+core_version_requirement: ^8 || ^9
+type: module
