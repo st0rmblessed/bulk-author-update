@@ -8,12 +8,9 @@
 /**
  * Implements hook_uninstall().
  */
+function bulk_author_update_uninstall() {
 
- function bulk_author_update_uninstall() {
-
-  // Delete state form config
+  // Delete state form config.
   \Drupal::state()->delete('bulk_author_update_config');
 
 }
-
-

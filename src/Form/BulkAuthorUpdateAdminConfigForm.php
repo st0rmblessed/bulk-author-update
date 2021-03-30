@@ -8,7 +8,7 @@ use Drupal\Core\State\StateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\user\Entity\User;
+use Drupal\user\UserStorageInterface;
 
 /**
  * BulkAuthorUpdate form.
@@ -37,6 +37,13 @@ class BulkAuthorUpdateAdminConfigForm extends FormBase {
   protected $entityTypeManager;
 
   /**
+   * User storage handler.
+   *
+   * @var \Drupal\user\UserStorageInterface
+   */
+  protected $userStorage;
+
+  /**
    * ReportWorkerBase constructor.
    *
    * @param \Drupal\Core\State\StateInterface $state
@@ -45,11 +52,14 @@ class BulkAuthorUpdateAdminConfigForm extends FormBase {
    *   Provides an interface for an entity field manager.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   Provides an interface for entity type managers.
+   * @param \Drupal\user\UserStorageInterface $user_storage
+   *   The user storage handler.
    */
-  public function __construct(StateInterface $state, EntityFieldManagerInterface $entity_field_manager, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(StateInterface $state, EntityFieldManagerInterface $entity_field_manager, EntityTypeManagerInterface $entity_type_manager, UserStorageInterface $user_storage) {
     $this->state = $state;
     $this->entityFieldManager = $entity_field_manager;
     $this->entityTypeManager = $entity_type_manager;
+    $this->userStorage = $user_storage;
   }
 
   /**
@@ -59,7 +69,8 @@ class BulkAuthorUpdateAdminConfigForm extends FormBase {
     return new static(
           $container->get('state'),
           $container->get('entity_field.manager'),
-          $container->get('entity_type.manager')
+          $container->get('entity_type.manager'),
+          $container->get('entity_type.manager')->getStorage('user')
       );
   }
 
@@ -76,13 +87,11 @@ class BulkAuthorUpdateAdminConfigForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
 
     $data = $this->state->get('bulk_author_update_config');
-
     // Load previously saved config.
     if (!is_null($data)) {
-      $bulk_author_update_configs = $data;
-      $default_user = User::load($data['author']);
+      $default_user = $this->userStorage->load($data['author']);
       // Get the user image.
-      if (!$default_user->user_picture->isEmpty()) {
+      if ($default_user->user_picture && !$default_user->user_picture->isEmpty()) {
         $displayImg = file_create_url($default_user->user_picture->entity->getFileUri());
       }
       else {

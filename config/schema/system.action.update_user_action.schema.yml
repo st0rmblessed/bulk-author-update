@@ -33,4 +33,3 @@ system.action.update_user_action:
     _core:
       type: ignore
       label: '_Core'
-

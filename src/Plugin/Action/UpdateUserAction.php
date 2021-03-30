@@ -22,7 +22,6 @@ class UpdateUserAction extends ActionBase {
    */
   public function execute($entity = NULL) {
     if (\Drupal::state()->get('bulk_author_update_config')) {
-      $id = $entity->id();
       $config_data = \Drupal::state()->get('bulk_author_update_config');
       $new_author = $config_data['author'];
       $current_author = $entity->getOwnerId();
@@ -35,7 +34,7 @@ class UpdateUserAction extends ActionBase {
     }
     else {
       $messenger = \Drupal::messenger();
-      $messenger->addMessage(t('No author was set in the configuration form. Please select an author.'), $messenger::TYPE_ERROR);
+      $messenger->addMessage($this->t('No author was set in the configuration form. Please select an author.'), $messenger::TYPE_ERROR);
     }
   }
 
